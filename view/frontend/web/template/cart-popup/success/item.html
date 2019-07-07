@@ -1,0 +1,62 @@
+<div class="item product product-item" data-role="product-item">
+    <div class="product">
+        <!-- ko if: product_has_url -->
+        <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1" class="product-item-photo">
+            <!-- ko template: {
+                name: 'Magento_Catalog/product/image_with_borders', data: product_image
+            } -->
+            <!-- /ko -->
+        </a>
+        <!-- /ko -->
+        <!-- ko ifnot: product_has_url -->
+        <span class="product-item-photo">
+            <!-- ko template: {
+                name: 'Magento_Catalog/product/image_with_borders', data: product_image
+            } -->
+            <!-- /ko -->
+        </span>
+        <!-- /ko -->
+
+        <div class="product-item-details">
+            <span class="product-item-name">
+                <!-- ko if: product_has_url -->
+                <a data-bind="attr: {href: product_url}, html: product_name"></a>
+                <!-- /ko -->
+                <!-- ko ifnot: product_has_url -->
+                <!-- ko text: product_name --><!-- /ko -->
+                <!-- /ko -->
+                <span class="qty-label">x</span>
+                <strong class="qty" data-bind="html: qty"></strong>
+            </span>
+
+            <!-- ko if: (options && options.length > 0)-->
+                <dl class="product options list">
+                    <!-- ko foreach: options -->
+                        <dt class="label" data-bind="text: label"></dt>
+                        <!-- ko if: ($data.full_view)-->
+                            <dd class="values" data-bind="html: full_view"></dd>
+                        <!-- /ko -->
+                        <!-- ko ifnot: ($data.full_view)-->
+                            <dd class="values" data-bind="html: value"></dd>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                </dl>
+            <!-- /ko -->
+
+            <div class="product-item-pricing">
+                <!-- ko if: canApplyMsrp -->
+
+                <div class="details-map">
+                    <span class="label" data-bind="i18n: 'Price'"></span>
+                    <span class="value" data-bind="i18n: 'See price before order confirmation.'"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: canApplyMsrp -->
+                <div class="price-container">
+                    <span class="price-wrapper" data-bind="html: product_price"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

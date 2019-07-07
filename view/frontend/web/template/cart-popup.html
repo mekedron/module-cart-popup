@@ -1,0 +1,9 @@
+<div class="cart-popup" data-bind="afterRender: setModalElement, blockLoader: !addedItem() && !optionsBlock()">
+    <div class="cart-popup-options" if="optionsBlock">
+        <each args="getRegion('options')" render=""/>
+    </div>
+
+    <div class="cart-popup-success" if="addedItem">
+        <each args="getRegion('success')" render=""/>
+    </div>
+</div>

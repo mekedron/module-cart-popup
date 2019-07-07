@@ -1,0 +1,144 @@
+// @TODO add more css here
+
+//
+//  Variables
+//  _____________________________________________
+
+@minicart__border-color: @color-gray80;
+@minicart__padding-horizontal: @indent__base;
+
+@minicart-qty__height: 24px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+  .cart-popup-item {
+    .lib-list-reset-styles();
+
+    .product-item {
+      padding: @indent__base 0 0;
+
+      > .product {
+        &:extend(.abs-add-clearfix all);
+      }
+    }
+
+    .product-image-wrapper {
+      &:extend(.abs-reset-image-wrapper all);
+    }
+
+    .product-item-pricing {
+      .label {
+        display: inline-block;
+      }
+    }
+
+    .product-item-name {
+      font-weight: @font-weight__regular;
+      margin: 0 0 @indent__s;
+
+      a {
+        .lib-css(color, @link__color);
+      }
+    }
+
+    .product-item-details {
+      padding-left: 88px;
+
+      .price {
+        font-weight: @font-weight__bold;
+      }
+
+      .price-including-tax,
+      .price-excluding-tax {
+        margin: @indent__xs 0;
+      }
+
+      .weee[data-label] {
+        .lib-font-size(11);
+
+        .label {
+          &:extend(.abs-no-display all);
+        }
+      }
+
+      .details-qty {
+        margin-top: @indent__s;
+      }
+
+      .product {
+        .options {
+          &.list {
+            &:extend(.abs-product-options-list all);
+            &:extend(.abs-add-clearfix all);
+          }
+        }
+      }
+    }
+
+    .product {
+      > .product-item-photo,
+      > .product-image-container {
+        float: left;
+      }
+
+      .toggle {
+        &:extend(.abs-toggling-title all);
+        border: 0;
+        padding: 0 @indent__xl @indent__xs 0;
+
+        &:after {
+          .lib-css(color, @color-gray56);
+          margin: 0 0 0 @indent__xs;
+          position: static;
+        }
+      }
+
+      .active {
+        > .toggle {
+          .lib-icon-font-symbol(
+            @_icon-font-content: @icon-up,
+            @_icon-font-position: after
+          );
+        }
+      }
+
+      &.pricing {
+        margin-top: 3px;
+      }
+
+      &.options {
+        &.list {
+          &:extend(.abs-product-options-list all);
+          &:extend(.abs-add-clearfix all);
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+
+    .details-qty,
+    .price-minicart {
+      .label {
+        &:extend(.abs-colon all);
+      }
+    }
+
+    .item-qty {
+      margin-right: @indent__s;
+      text-align: center;
+      width: 45px;
+    }
+
+    .update-cart-item {
+      .lib-font-size(11);
+      vertical-align: top;
+    }
+
+    .subtitle {
+      display: none;
+    }
+  }
+}

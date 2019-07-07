@@ -1,0 +1,32 @@
+{
+    "name": "onilab/module-cart-popup",
+    "description": "N/A",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~7.1.3||~7.2.0",
+        "magento/framework": "102.0.*",
+        "magento/module-backend": "101.0.*",
+        "magento/module-catalog": "103.0.*",
+        "magento/module-catalog-inventory": "100.3.*",
+        "magento/module-checkout": "100.3.*",
+        "magento/module-sales": "102.0.*",
+        "magento/module-store": "101.0.*",
+        "magento/module-ui": "101.1.*"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Onilab\\CartPopup\\": ""
+        }
+    },
+    "version": "0.1.0"
+}

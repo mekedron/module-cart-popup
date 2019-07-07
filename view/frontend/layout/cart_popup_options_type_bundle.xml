@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.options.wrapper">
+            <container htmlTag="div" htmlClass="bundle-options-container" name="bundle.product.view.options">
+                <block class="Magento\Catalog\Block\Product\View" name="bundle.product.view.options.notice" template="Magento_Bundle::catalog/product/view/options/notice.phtml"/>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle.options" as="type_bundle_options" template="Magento_Bundle::catalog/product/view/type/bundle/options.phtml" before="-">
+                    <container name="product.info.bundle.options.top" as="product_info_bundle_options_top">
+                        <block class="Magento\Catalog\Block\Product\View" name="bundle.back.button" as="backButton" before="-" template="Magento_Bundle::catalog/product/view/backbutton.phtml"/>
+                    </container>
+                    <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select"/>
+                    <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
+                    <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio"/>
+                    <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox"/>
+                </block>
+            </container>
+        </referenceBlock>
+        <referenceBlock name="product.info.form.options">
+            <container name="bundle.product.options.wrapper" htmlTag="div" htmlClass="bundle-options-wrapper"/>
+
+            <block class="Magento\Catalog\Pricing\Render" name="product.price.render.bundle.customization">
+                <arguments>
+                    <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                    <argument name="price_type_code" xsi:type="string">configured_price</argument>
+                    <argument name="zone" xsi:type="string">item_view</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <move element="product.info.options.wrapper" destination="bundle.product.options.wrapper" before="-" />
+        <move element="product.info.options.wrapper.bottom" destination="bundle.product.options.wrapper" after="product.info.options.wrapper" />
+    </body>
+</page>
+
+

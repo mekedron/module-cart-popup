@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var \Onilab\CartPopup\Block\CartPopup $block
+ */
+?>
+
+<div id="cart-popup" data-bind="scope:'cartPopup'" style="display: none;">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#cart-popup": {
+                "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+</div>

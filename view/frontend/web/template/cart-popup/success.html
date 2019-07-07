@@ -1,0 +1,17 @@
+<div class="cart-popup-title" html="title"></div>
+
+<div class="cart-popup-content">
+    <div class="cart-popup-item">
+        <!-- ko template: {
+            name: 'Onilab_CartPopup/cart-popup/success/item', data: addedItem
+        } -->
+        <!-- /ko -->
+    </div>
+
+    <!-- @TODO ADD TOTALS INFORMATION IF NECESSARY -->
+    <div class="cart-popup-summary">
+        <!--<//each args="getRegion('summary')" render=""/>-->
+    </div>
+</div>
+
+<div class="cart-popup-related" data-bind="html: relatedProductsBlock, afterRender: $parent.triggerContentUpdated" if="relatedProductsBlock"></div>

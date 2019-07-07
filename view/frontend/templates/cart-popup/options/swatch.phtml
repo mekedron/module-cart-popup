@@ -1,0 +1,39 @@
+<?php
+/** @var \Onilab\CartPopup\Block\CartPopup\Options\Renderer $block */
+$switchStrategy = $block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct');
+?>
+<div class="product-item__swatches-container">
+    <div class="swatch-opt-<?= $block->getProduct()->getId() ?>" data-role="swatch-options"></div>
+    <script type="text/x-magento-init">
+        {
+            ".cart-popup .swatch-opt-<?= $block->getProduct()->getId() ?>": {
+                "Onilab_CartPopup/js/view/cart-popup/options/swatch": {
+                    "jsonConfig": <?= $block->getJsonConfig() ?>,
+                    "jsonSwatchConfig": <?= $block->getJsonSwatchConfig(); ?>,
+                    "mediaCallback": "<?= $block->getMediaCallback() ?>",
+                    "gallerySwitchStrategy": "<?= $switchStrategy ?: 'replace'; ?>",
+                    "mediaGallerySelector": ".cart-popup .product-image-photo",
+                    "selectorProduct": ".cart-popup",
+                    "normalPriceLabelSelector": ".cart-popup .normal-price .price-label",
+                    "tierPriceBlockSelector": ".cart-popup [data-role=tier-price-block]",
+                    "classes": {
+                        "attributeOptionsWrapper": "cart-popup-swatch-attribute-options"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script type="text/x-magento-init">
+        {
+            ".cart-popup [data-role=priceBox]": {
+                "priceBox": {
+                    "priceConfig": {
+                        "priceFormat": <?= /* @escapeNotVerified */ $block->getPriceFormatJson(); ?>,
+                        "prices": <?= /* @escapeNotVerified */ $block->getPricesJson(); ?>
+                    }
+                }
+            }
+        }
+    </script>
+</div>

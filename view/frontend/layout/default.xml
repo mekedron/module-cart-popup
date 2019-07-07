@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Swatches::css/swatches.css"/>
+    </head>
+    <body>
+        <referenceContainer name="before.body.end">
+            <block class="Onilab\CartPopup\Block\CartPopup" name="cart-popup" template="Onilab_CartPopup::cart-popup.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="cartPopup" xsi:type="array">
+                                <item name="component" xsi:type="string">Onilab_CartPopup/js/view/cart-popup</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="cartUrl" xsi:type="helper" helper="\Onilab\CartPopup\Helper\CartPopupData::getCartUrl"/>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="options" xsi:type="array">
+                                        <item name="component" xsi:type="string">Onilab_CartPopup/js/view/cart-popup/options</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="displayArea" xsi:type="string">options</item>
+                                        </item>
+                                    </item>
+                                    <item name="success" xsi:type="array">
+                                        <item name="component" xsi:type="string">Onilab_CartPopup/js/view/cart-popup/success</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="priceFormat" xsi:type="helper" helper="Onilab\CartPopup\Helper\CartPopupData::getPriceFormat"/>
+                                            <item name="cartUrl" xsi:type="helper" helper="Onilab\CartPopup\Helper\CartPopupData::getCartUrl"/>
+                                            <item name="displayArea" xsi:type="string">success</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
