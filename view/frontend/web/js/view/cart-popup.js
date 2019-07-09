@@ -12,7 +12,8 @@ define([
     return Component.extend({
         defaults: {
             template: 'Onilab_CartPopup/cart-popup',
-            priceFormat: null
+            priceFormat: null,
+            cartUrl: ''
         },
         modalWindow: null,
         addedItem: cartPopupModel.addedItem,
@@ -23,6 +24,8 @@ define([
         },
 
         setModalElement: function (element) {
+            var cartUrl = this.cartUrl;
+
             if (cartPopupModel.modalWindow == null) {
                 cartPopupModel.createPopUp(element, {
                     // @TODO refactor title
@@ -36,7 +39,7 @@ define([
                         text: $t('View and Edit Cart'),
                         class: 'action-primary action-save',
                         click: function() {
-                            window.location = this.cartUrl
+                            window.location = cartUrl
                         }
                     }]
                 });

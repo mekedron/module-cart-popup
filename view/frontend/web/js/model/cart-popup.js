@@ -10,7 +10,8 @@ define([
 
     var addedItemId = ko.observable(null);
 
-    // @todo refactor
+    // @TODO refactor
+    // @TODO make it works with related, crossels and upsells
 
     return {
         modalWindow: null,
@@ -40,6 +41,7 @@ define([
             return foundItem;
         }),
 
+        // @TODO create popup after first call
         createPopUp: function (element, options) {
             options = $.extend({
                 'type': 'popup',

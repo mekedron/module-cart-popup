@@ -141,4 +141,19 @@
       display: none;
     }
   }
+
+  // @TODO refactor
+  .cart-popup-options {
+    .cart-popup-content {
+      display: flex;
+
+      & > .product-item-photo {
+        margin-right: @indent__base;
+      }
+
+      & > .product-add-form {
+        flex: 1;
+      }
+    }
+  }
 }

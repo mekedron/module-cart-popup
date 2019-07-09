@@ -13,6 +13,7 @@
                template="Onilab_CartPopup::cart-popup/options.phtml">
             <container name="product.info.main" htmlClass="product-info" htmlTag="div">
                 <container name="product.info.price" label="Product info auxiliary container" htmlTag="div" htmlClass="product-info-price">
+                    <!-- @TODO add stock info here -->
                     <container name="product.info.stock.sku" label="Product auxiliary info" htmlTag="div" htmlClass="product-info-stock-sku">
                         <container name="product.info.type" before="-"/>
                         <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.sku" template="Magento_Catalog::product/view/attribute.phtml" after="product.info.type">
@@ -34,6 +35,7 @@
                     </block>
                 </container>
 
+                <!-- @TODO check tire prices -->
                 <block class="Magento\Catalog\Pricing\Render" name="product.price.tier" after="product.info.price">
                     <arguments>
                         <argument name="price_render" xsi:type="string">product.price.render.default</argument>

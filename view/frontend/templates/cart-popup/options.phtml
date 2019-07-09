@@ -13,15 +13,15 @@
 <?php $product = $block->getProduct(); ?>
 <?php $image = 'category_page_grid'; ?>
 
-<div class="cart-popup-swatch-image">
-    <a href="<?= $block->escapeUrl($block->getProductUrl($product)) ?>" class="product-item__photo-link">
-        <?= $block->getImage($product, $image)->toHtml() ?>
-    </a>
-</div>
-
-<?= $block->getChildHtml('product.info.main') ?>
+<a href="<?= $block->escapeUrl($block->getProductUrl($product)) ?>" class="product-item-photo">
+    <?= $block->getImage($product, $image)->toHtml() ?>
+</a>
 
 <div class="product-add-form">
+    <?= $block->getChildHtml('product.info.main') ?>
+    <?php
+    // @TODO override all options template to make these works with #cart_popup_product_addtocart_form!
+    ?>
     <form data-product-sku="<?= $block->escapeHtml($product->getSku()) ?>"
           action="<?= /* @NoEscape */ $block->getSubmitUrl($product) ?>" method="post"
           id="product_addtocart_form"<?php if ($product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
@@ -43,6 +43,7 @@
         <?= $block->getChildHtml('form_bottom') ?>
     </form>
 </div>
+
 <script>
     require([
         'jquery',
