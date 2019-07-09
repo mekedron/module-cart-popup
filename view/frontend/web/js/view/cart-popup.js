@@ -16,7 +16,9 @@ define([
             cartUrl: ''
         },
         modalWindow: null,
-        addedItem: cartPopupModel.addedItem,
+
+        // @TODO add support for multiple items, for checkboxes related products in pdp for example
+        addedItems: cartPopupModel.addedItems,
         optionsBlock: cartPopupModel.optionsBlock,
 
         initialize: function() {

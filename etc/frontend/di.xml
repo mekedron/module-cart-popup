@@ -8,6 +8,6 @@
         <plugin name="Onilab_CartPopup::modifyUpdateCartResponse" type="Onilab\CartPopup\Plugin\UpdateCartResponseModifier"/>
     </type>
     <type name="Magento\Quote\Model\Quote">
-        <plugin name="Onilab_CartPopup::catchLastAddedProduct" type="Onilab\CartPopup\Plugin\LastAddedProductCatcher"/>
+        <plugin name="Onilab_CartPopup::catchLastAddedProduct" type="Onilab\CartPopup\Plugin\LastAddedItemsCatcher"/>
     </type>
 </config>

@@ -30,9 +30,9 @@ class CartResponseModifier
     private $productRepository;
 
     /**
-     * @var \Onilab\CartPopup\Model\LastAddedProductRegistry
+     * @var \Onilab\CartPopup\Model\LastAddedItemsStorage
      */
-    private $registry;
+    private $itemsStorage;
 
     /**
      * @var \Magento\Framework\Serialize\Serializer\Json
@@ -56,7 +56,7 @@ class CartResponseModifier
      * @param \Onilab\CartPopup\Model\OptionsBlockBuilder $optionsBlockBuilder
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
-     * @param \Onilab\CartPopup\Model\LastAddedProductRegistry $registry
+     * @param \Onilab\CartPopup\Model\LastAddedItemsStorage $itemsStorage
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Framework\Serialize\Serializer\Json|null $serializer
@@ -66,7 +66,7 @@ class CartResponseModifier
         \Onilab\CartPopup\Model\OptionsBlockBuilder $optionsBlockBuilder,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Onilab\CartPopup\Model\LastAddedProductRegistry $registry,
+        \Onilab\CartPopup\Model\LastAddedItemsStorage $itemsStorage,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\Serialize\Serializer\Json $serializer = null
@@ -75,7 +75,7 @@ class CartResponseModifier
         $this->optionsBlockBuilder = $optionsBlockBuilder;
         $this->messageManager = $messageManager;
         $this->productRepository = $productRepository;
-        $this->registry = $registry;
+        $this->itemsStorage = $itemsStorage;
         $this->formKeyValidator = $formKeyValidator;
         $this->logger = $logger;
         $this->serializer = $serializer ?: \Magento\Framework\App\ObjectManager::getInstance()
@@ -127,10 +127,28 @@ class CartResponseModifier
      */
     private function prepareResponseContent($content)
     {
-        $product = $this->registry->getProduct();
-        $quoteItem = $this->registry->getQuoteItem();
+        // basic changes to avoid redirect
+        if (isset($content['backUrl'])) {
+            $content['back_url'] = $content['backUrl'];
+            unset($content['backUrl']);
+        }
 
-        $content['success'] = $product && $quoteItem;
+        // and loading messages via customer data
+        $content['messages'] = $this->collectMessages();
+
+        // so lets begin
+        $addedItems = $this->itemsStorage->getRecords();
+
+        // AddProduct has thrown an exception, so the add to cart process has failed with the message
+        if (empty($addedItems)) {
+            return $content;
+        }
+
+        // So the first added item is current adding item
+        $quoteItem = $addedItems[0]->getQuoteItem();
+        $product = $addedItems[0]->getProduct();
+
+        $content['success'] = $quoteItem && $product;
 
         $content['related_products_block'] = $this->relatedBlockBuilder->build($product);
 
@@ -149,16 +167,14 @@ class CartResponseModifier
             $content['options_block'] = $this->optionsBlockBuilder->build($product);
         }
 
-        $content['product_id'] = $product ? $product->getId() : null;
+        $content['added_items'] = [];
 
-        $content['item_id'] = $quoteItem ? $quoteItem->getId() : null;
-
-        if (isset($content['backUrl'])) {
-            $content['back_url'] = $content['backUrl'];
-            unset($content['backUrl']);
+        foreach ($addedItems as $addedItem) {
+            $content['added_items'][] = [
+                'product_id' => $addedItem->getProduct() ? $addedItem->getProduct()->getId() : null,
+                'item_id' => $addedItem->getQuoteItem() ? $addedItem->getQuoteItem()->getId() : null
+            ];
         }
-
-        $content['messages'] = $this->collectMessages();
 
         return $content;
     }

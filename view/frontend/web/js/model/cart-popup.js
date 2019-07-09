@@ -1,14 +1,15 @@
 define([
     'ko',
     'jquery',
+    'underscore',
     'Magento_Ui/js/modal/modal',
     'Magento_Ui/js/modal/alert',
     'mage/translate',
     'Magento_Customer/js/customer-data'
-], function (ko, $, modal, uiAlert, $t, customerData) {
+], function (ko, $, _, modal, uiAlert, $t, customerData) {
     'use strict';
 
-    var addedItemId = ko.observable(null);
+    var addedItems = ko.observable(null);
 
     // @TODO refactor
     // @TODO make it works with related, crossels and upsells
@@ -20,25 +21,35 @@ define([
 
         optionsBlock: ko.observable(null),
 
-        addedItem: ko.computed(function() {
+        addedItems: ko.computed(function () {
             var cartData = customerData.get('cart');
-            var foundItem = null;
+            var foundItems = [];
+            var addedItemsIds = [];
 
-            if (!addedItemId()) {
+            if (!addedItems()) {
                 return null;
             }
 
-            if ($.isArray(cartData()['items'])) {
-                cartData().items.forEach(function(item) {
-                    if (foundItem === null &&
-                        item.item_id === addedItemId()
-                    ) {
-                        foundItem = item;
-                    }
-                }.bind(this));
+            // @TODO refactor this someday
+            if ($.isArray(cartData().items)) {
+                addedItemsIds = _.map(addedItems(), function (item) {
+                    return item.item_id
+                });
+
+                foundItems = _.values($.extend(true, {}, cartData().items));
+
+                foundItems = _.filter(foundItems, function (item) {
+                    // Yeah, we just could make a check like "> -1" or "!== -1", but I found it nicer,
+                    // because we can use exactly same function here and below, hahahaha
+                    return addedItemsIds.indexOf(item.item_id) + 1;
+                });
+
+                foundItems = _.sortBy(foundItems, function (item) {
+                    return addedItemsIds.indexOf(item.item_id) + 1;
+                });
             }
 
-            return foundItem;
+            return foundItems.length ? foundItems : null;
         }),
 
         // @TODO create popup after first call
@@ -56,7 +67,7 @@ define([
             return this;
         },
 
-        bindAddToCartHandler: function() {
+        bindAddToCartHandler: function () {
             // we want to call this after all the others events
             // because we can destroy the configurable cart-popup add to cart form
             $(document).on(
@@ -67,7 +78,7 @@ define([
             return this;
         },
 
-        handleResponse: function(event, data) {
+        handleResponse: function (event, data) {
             if (!data.response) {
                 this.closeModal();
                 return;
@@ -83,7 +94,7 @@ define([
 
             if (data.response.success === true) {
                 this.showSuccessModal(
-                     data.response.item_id,
+                    data.response.added_items,
                     data.response.related_products_block || '',
                     data.response.options_block || ''
                 );
@@ -111,9 +122,9 @@ define([
             return this;
         },
 
-        showOptionsModal: function(optionsBlock) {
+        showOptionsModal: function (optionsBlock) {
             this.setModalTitle($t('Please select configuration.'));
-            this.setAddedItem(null);
+            this.setAddedItems(null);
             this.setRelatedProductsBlock(null);
             this.setOptionsBlock(optionsBlock);
             this.showModal();
@@ -121,10 +132,10 @@ define([
             return this;
         },
 
-        showSuccessModal: function (itemId, relatedProductsBlock) {
+        showSuccessModal: function (addedItems, relatedProductsBlock) {
             // @TODO add product name here
             this.setModalTitle($t('The article has been added to your cart.'));
-            this.setAddedItem(itemId);
+            this.setAddedItems(addedItems);
             this.setRelatedProductsBlock(relatedProductsBlock);
             this.setOptionsBlock(null);
             this.showModal();
@@ -142,7 +153,7 @@ define([
 
         closeModal: function () {
             $(this.modalWindow).modal('closeModal');
-            this.setAddedItem(null);
+            this.setAddedItems(null);
             this.setRelatedProductsBlock(null);
             this.setOptionsBlock(null);
 
@@ -155,8 +166,8 @@ define([
             return this;
         },
 
-        setAddedItem: function(item, invalidateCart) {
-            addedItemId(item);
+        setAddedItems: function (item, invalidateCart) {
+            addedItems(item);
 
             if (invalidateCart) {
                 customerData.set('cart', {});
@@ -166,13 +177,13 @@ define([
             return this;
         },
 
-        setRelatedProductsBlock: function(data) {
+        setRelatedProductsBlock: function (data) {
             this.relatedProductsBlock(data || null);
 
             return this;
         },
 
-        setOptionsBlock: function(data) {
+        setOptionsBlock: function (data) {
             this.optionsBlock(data || null);
 
             return this;
