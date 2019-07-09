@@ -4,6 +4,10 @@
 
 Please consider following this project's author, [Nikita Rabykin](https://github.com/durexlovesex), and consider starring the project to show your :heart: and support.
 
+**WARNING.**
+Currently the module is being developed.
+Please, check all the _TODOs_ in the code comments and please don't hesitate to contribute :wink:
+
 ## Install
 
 Install with [composer](https://getcomposer.org/):

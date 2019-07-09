@@ -5,6 +5,9 @@ define([
 ], function ($, $t) {
     'use strict';
 
+    // @TODO update SKU
+    // @TODO fix image in gallery
+
     $.widget('onilab.CartPopupSwatchRenderer', $.mage.SwatchRenderer, {
         options: {
             enableControlLabel: false,

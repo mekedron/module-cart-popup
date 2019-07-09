@@ -13,6 +13,7 @@ define([
 
     // @TODO refactor
     // @TODO make it works with related, crossels and upsells
+    // @TODO doesn't work in hot sells
 
     return {
         modalWindow: null,

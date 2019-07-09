@@ -3,8 +3,6 @@
 namespace Onilab\CartPopup\Block\CartPopup\Options;
 
 /**
- * Class Swatch
- * @package Onilab\CartPopup\Block
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Renderer extends \Magento\Swatches\Block\Product\Renderer\Configurable
