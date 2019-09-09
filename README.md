@@ -26,11 +26,13 @@ $ php bin/magento cache:clean
 $ php bin/magento maintenance:disable
 ```
 
-## Why do you need the Magento 2 AJAX Add to Cart extenension?
+## Why do you need this Magento 2 AJAX Add to Cart extension?
 
 **FREE Magento 2 AJAX Shopping Cart module** improves customers' experience by decreasing number of page reloads.
 Now customer can easily add product to shopping cart directly from product listing page even though the product is configurable or bundle.
 They can fast select all the configurations they need directly from produt listing without visiting a product page.
+
+The extension is well coded, it is perfect. There are no preferences or custom controllers. 
 
 ![Onilab M2 Cart Popup Demo](https://user-images.githubusercontent.com/2446589/60914608-8b72eb00-a292-11e9-8139-a14a122b9a70.gif)
 
