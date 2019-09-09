@@ -2,7 +2,7 @@
 
 > Best FREE AJAX Shopping Cart extension for Luma theme has ever made!
 
-Please consider following this project's author, [Nikita Rabykin](https://github.com/durexlovesex), and consider starring the project to show your :heart: and support.
+Please consider following this project's author, [Nikita Rabykin](https://github.com/durexlovesex), and consider starring the project to show your love :heart: and support.
 
 **WARNING.**
 Currently the module is being developed.
@@ -26,11 +26,11 @@ $ php bin/magento cache:clean
 $ php bin/magento maintenance:disable
 ```
 
-## Why is this needed?
+## Why do you need the Magento 2 AJAX Add to Cart extenension?
 
-Magento 2 AJAX Shopping Cart extension decrease customer wasting time on page reloads.
+**FREE Magento 2 AJAX Shopping Cart module** improves customers' experience by decreasing number of page reloads.
 Now customer can easily add product to shopping cart directly from product listing page even though the product is configurable or bundle.
-They can fast select all the configurations they need without visiting a product page.
+They can fast select all the configurations they need directly from produt listing without visiting a product page.
 
 ![Onilab M2 Cart Popup Demo](https://user-images.githubusercontent.com/2446589/60914608-8b72eb00-a292-11e9-8139-a14a122b9a70.gif)
 
